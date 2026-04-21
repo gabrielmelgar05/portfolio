@@ -25,7 +25,7 @@ export function HeroSection() {
         try {
           await document.fonts?.ready;
         } catch {
-          // ok, segue
+          //
         }
 
         const titleEl = scope.current?.querySelector("[data-split='title']") as HTMLElement | null;
@@ -34,7 +34,6 @@ export function HeroSection() {
 
         if (!titleEl || !subtitleEl || btnLabelEls.length === 0) return;
 
-        // Cria splits (mask cria “janela” pra subir de baixo pra cima) <sources>[1]</sources>
         titleSplit = SplitText.create(titleEl, {
           type: "chars",
           mask: "chars",
@@ -47,14 +46,12 @@ export function HeroSection() {
           linesClass: "line",
         });
 
-        // SplitText em múltiplos elementos: cria um split por selector NodeList
         btnLabelSplit = SplitText.create(btnLabelEls, {
           type: "lines",
           mask: "lines",
           linesClass: "line",
         });
 
-        // Estados iniciais (SÓ depois do split existir)
         gsap.set(titleSplit.chars, { yPercent: 110 });
         gsap.set(subtitleSplit.lines, { yPercent: 110 });
         gsap.set(btnLabelSplit.lines, { yPercent: 110 });
@@ -136,19 +133,23 @@ export function HeroSection() {
       {/* BG */}
       <img src="/image-hero.png" alt="Hero" className="absolute inset-0 h-full w-full object-cover" />
 
-      {/* Gradient (0/50/100) */}
+      {/* Gradient principal */}
       <div
         className="absolute inset-0 pointer-events-none
         bg-[linear-gradient(to_bottom,rgba(0,0,0,0)_0%,rgba(0,0,0,0.5)_50%,rgba(0,0,0,1)_100%)]"
       />
 
-      {/* Top fade (nav) */}
+      {/* Top fade */}
       <div className="absolute inset-x-0 top-0 h-40 pointer-events-none bg-gradient-to-b from-black/60 to-black/0" />
 
       {/* NAV */}
       <header className="absolute inset-x-0 top-0 z-20">
         <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 pt-6">
-          <div className='text-lg tracking-[0.35em] uppercase text-white/90 [font-family:Nevera,system-ui,sans-serif]'>
+          {/* Logo que vai “receber” a do preloader */}
+          <div
+            data-logo="nav"
+            className='text-lg tracking-[0.35em] uppercase text-white/90 [font-family:Nevera,system-ui,sans-serif]'
+          >
             ARTEMIS
           </div>
 
@@ -168,7 +169,7 @@ export function HeroSection() {
             className='text-[56px] leading-none tracking-[0.04em] text-white sm:text-[72px] md:text-[126px]
             [font-family:Nevera,system-ui,sans-serif]'
           >
-            ARTEMIS II
+            MISSION ARTEMIS
           </h1>
 
           <p
@@ -178,7 +179,7 @@ export function HeroSection() {
             Humanity&apos;s return to the Moon has begun.
           </p>
 
-          {/* CTAs (estrutura necessária pro efeito do seu script) */}
+          {/* CTAs */}
           <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <a
               href="#mission"
